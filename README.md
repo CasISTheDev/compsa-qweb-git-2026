@@ -4,7 +4,7 @@ Get your name on the wall by opening your first pull request.
 
 **The wall:** https://queens-web-development-club.github.io/compsa-qweb-git-2026/
 
-Everything happens in this repo. Work through [EXERCISES.md](EXERCISES.md) from the top. Stuck? Put your hand up, or look in "When it goes wrong" at the bottom of the exercises.
+The first half of the workshop happens in your own repo. This one starts at the **Pull Requests** slide: from there, follow [EXERCISES.md](EXERCISES.md), where every heading matches a slide. Stuck? Put your hand up, or look in "When it goes wrong" at the bottom of the exercises.
 
 ## Before you start
 
@@ -14,10 +14,13 @@ Everything happens in this repo. Work through [EXERCISES.md](EXERCISES.md) from 
    git --version
    ```
    No git? Mac: run `xcode-select --install`. Windows: install from git-scm.com, then use "Git Bash".
-3. Tell git who you are (once per computer):
+3. Tell git who you are, and three settings that keep things simple (once per computer):
    ```sh
    git config --global user.name "Your Name"
    git config --global user.email "the-email-on-your-github@example.com"
+   git config --global init.defaultBranch main
+   git config --global pull.rebase false
+   git config --global core.editor nano
    ```
 
 ## The idea in one picture
