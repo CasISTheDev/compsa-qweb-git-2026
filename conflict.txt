@@ -1,4 +1,4 @@
-This file is only for exercise 5. Change the line under the label on two branches.
+This file is for the Conflicts and Undo Anything exercises. Change the line under the label.
 
 Favourite language:
 (change this line)

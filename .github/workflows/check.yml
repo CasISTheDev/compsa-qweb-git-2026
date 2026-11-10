@@ -1,10 +1,28 @@
 name: Check member file
-on: pull_request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
 permissions:
   contents: read
 jobs:
   check:
+    # Execs editing the exercises or scripts aren't adding themselves, so they skip it.
+    if: ${{ !contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.pull_request.author_association) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 scripts/members.py --check
+        with:
+          fetch-depth: 0
+      # Run the checker as it is on main, so a pull request can't change its own grader.
+      - name: Check your file in members/
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/scripts"
+          # Main has no check_pr.py only before the first pull request that adds it.
+          src="$BASE_SHA"; git cat-file -e "$BASE_SHA:scripts/check_pr.py" 2>/dev/null || src="$HEAD_SHA"
+          git show "$src:scripts/members.py" > "$RUNNER_TEMP/scripts/members.py"
+          git show "$src:scripts/check_pr.py" > "$RUNNER_TEMP/scripts/check_pr.py"
+          python3 "$RUNNER_TEMP/scripts/check_pr.py"
