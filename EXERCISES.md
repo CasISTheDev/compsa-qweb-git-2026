@@ -93,9 +93,11 @@ the opposite, so nobody's history gets rewritten.
 ## Keep It Out
 
 Not everything belongs in Git: secrets, people's data, huge files, generated files.
+Do this one on `main`, not on your `add-` branch, so your pull request stays just your one file.
 
 1. Make a fake secret:
    ```sh
+   git switch main
    echo "API_KEY=not-a-real-key" > .env
    git status
    ```

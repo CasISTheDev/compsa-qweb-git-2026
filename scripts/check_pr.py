@@ -28,6 +28,10 @@ def main():
         elif path.startswith("members/"):
             verb = "edited" if status == "M" else "deleted"
             errors.append((path, f"You {verb} {path}, which isn't yours. Put it back, so this pull request only adds your own file."))
+        elif path == ".gitignore":
+            errors.append((path, "Keep It Out goes on main, not on this branch. Take it off here with: "
+                                 "git rm --cached .gitignore, then git commit -m \"Take .gitignore off this branch\", then git push. "
+                                 "Your .gitignore file stays on your laptop."))
         else:
             errors.append((path, f"You changed {path}. This pull request should only add your one file in members/. Undo that change, commit, and push again."))
 
